@@ -1,25 +1,32 @@
 // @ts-check
-import { defineConfig, devices } from '@playwright/test';
+const { devices } = require('@playwright/test');
 
-export default defineConfig({
+const config = {
   testDir: './tests',
-
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  testMatch: '**/*.spec.js',
+  retries :0,
+  
+  /* Maximum time one test can run for. */
+  timeout: 30 * 1000,
+  expect: {
+  
+    timeout: 5000
+  },
+  
   reporter: 'html',
-
+  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    screenshot: 'on',
-    video: 'off',
-    trace: 'retain-on-failure',
+
+    browserName : 'chromium',
+    headless : true,
+    screenshot : 'on',
+    trace : 'on',//off,on
+    
+    
+    
   },
 
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    }
-  ],
-});
+
+};
+
+module.exports = config;
