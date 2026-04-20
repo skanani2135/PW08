@@ -1,7 +1,15 @@
 const { test, expect } = require("@playwright/test");
 const ExcelJS = require('exceljs');
-
-const excelPath = "C:/01/Personal/Technical/Automation/Playwright/02/tests/test-data/ExcelSheet/ExcelData.xlsx";
+const path = require('path');   
+const excelPath = path.join(
+    __dirname,
+    '..',
+    '..',
+    'tests',
+    'test-data',
+    'ExcelSheet',
+    'ExcelData.xlsx'
+);
 
 /**
  * Utility to load workbook
