@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 test('Screen Shots', async ({ page }) => {
-
+    //Relative path for screenshots
     const screenshotDir = path.join(
         __dirname,
         '..',
