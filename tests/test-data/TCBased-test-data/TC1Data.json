@@ -1,0 +1,5 @@
+{
+    "testCaseName": "TC1 - Create Order and Validate UI",
+    "login": "validUser",
+    "order": "defaultOrder"
+}

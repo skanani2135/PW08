@@ -1,0 +1,14 @@
+[
+    {
+        "validUser": {
+            "userEmail": "sharingac1234@gmail.com",
+            "userPassword": "Abcd@1234"
+        }
+    },
+    {
+        "validUser": {
+            "userEmail": "sandip1.qa@gmail.com",
+            "userPassword": "Abcd@1234"
+        }
+    }
+]
