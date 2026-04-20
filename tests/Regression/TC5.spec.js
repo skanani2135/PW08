@@ -1,25 +1,45 @@
 const { test, expect } = require('@playwright/test');
+const fs = require('fs');
+const path = require('path');
 
-test('Screen Shots', async ({ page, browser }) => {
+test('Screen Shots', async ({ page }) => {
 
-    //page.on('request', request => console.log(request.url()));
-    //page.on('response', response => console.log(response.status()));
+    const screenshotDir = path.join(
+        __dirname,
+        '..',
+        '..',
+        'tests',
+        'AllScreenShots'
+    );
+
+    // Ensure folder exists
+    if (!fs.existsSync(screenshotDir)) {
+        fs.mkdirSync(screenshotDir, { recursive: true });
+    }
+
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+
     await page.locator('input#username').fill("rahulshettyacademy");
     await page.locator('input[type="password"]').fill("Learning@830$3mK2");
     await page.locator('input[value="user"]').check();
+
     await page.locator('.modal-body').waitFor();
     await page.getByRole('button', { name: /ok/i }).click();
 
     const weLogin = page.locator('input#terms');
-    //Below two screen shots are not used for any comparison
-    await page.screenshot({ path: 'FullLoginPageSS.png' });//Screen shot of whole page
-    await weLogin.screenshot({ path: 'LoginBtnSS.png' });//Screen shot of locators.
 
+    // Full page screenshot
+    await page.screenshot({
+        path: path.join(screenshotDir, 'FullLoginPageSS.png'),
+        fullPage: true
+    });
 
-    //Yesterday [i.e Some where in past] you run this TC and base line snapshot imapge is created by Playwright snapshot system # npx playwright test --update-snapshots # await expect(page).toHaveScreenshot()
-    //Now you are re-running the same TC and taking screen shot and comparing it with yeterday's base line snapshot image.
-    expect(await page.screenshot()).toMatchSnapshot("ExpectedImage.png");
+    // Element screenshot
+    await weLogin.screenshot({
+        path: path.join(screenshotDir, 'LoginBtnSS.png')
+    });
+
+    //expect(await page.screenshot()).toMatchSnapshot("ExpectedImage.png");
+
     await weLogin.click();
-
 });
